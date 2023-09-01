@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/cubit/counter_cubit.dart';
 import 'package:flutter_application_1/cubit/view/counter_with_cubit.dart';
+import 'package:flutter_application_1/dummy_bloc/dummy_counter_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const CounterWithCubit(),
+        home: const DummyCounterView(),
       ),
     );
   }

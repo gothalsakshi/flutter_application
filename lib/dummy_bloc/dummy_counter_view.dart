@@ -8,13 +8,16 @@ class DummyCounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider(create: (ctx)=> DummyBloc(),
+      body: BlocProvider<DummyBloc>(create: (ctx)=> DummyBloc(),
       child: BlocBuilder<DummyBloc,DummyState>(
         builder: (ctx,state){
         return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(''),
+          Text(state.toString()),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(onPressed: (){
                 BlocProvider.of<DummyBloc>(context).add(DummyCounterIncrementEvent());
