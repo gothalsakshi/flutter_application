@@ -74,6 +74,7 @@ class DummyCounterView extends StatelessWidget {
             }),
 
             // used multiple bloc in one file
+            const Text('Checking internet connectivity'),
             BlocBuilder<ConnectivityBloc,ConnectivityState>(
               builder: (ctx,state){
                 if(state is WifiConnectivityState){
