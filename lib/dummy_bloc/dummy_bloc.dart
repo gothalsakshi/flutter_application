@@ -7,6 +7,7 @@ part 'dummy_state.dart';
 
 class DummyBloc extends Bloc<DummyEvent, DummyState> {
   int dummyCounter = 0;
+  bool checkValue = false;
   DummyBloc() : super(DummyInitial()) {
     on<DummyEvent>((event, emit) {
       if(event is DummyCounterIncrementEvent){
@@ -15,7 +16,12 @@ class DummyBloc extends Bloc<DummyEvent, DummyState> {
         emit(DummyCounterIncrementState(counter: dummyCounter));
       }else if(event is DummyCounterDecrementEvent){
         dummyCounter--;
+        debugPrint('here is counte--->$dummyCounter');
         emit(DummyCounterDecrementState(counter: dummyCounter));
+      }else if(event is CheckBoxUpdateEvent){
+        checkValue =! checkValue;
+        debugPrint('updated check value is --->$checkValue');
+        emit(CheckBoxUpdateState(checkValue: checkValue));
       }
     });
   }

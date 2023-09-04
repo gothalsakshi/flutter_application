@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../connectivity_bloc/screen/connectivity_check_screen.dart';
+// import '../connectivity_bloc/screen/connectivity_check_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,11 +13,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3),(){
-    Navigator.pushReplacement( context, 
-    MaterialPageRoute(builder: (context) => const ConnectivityCheckScreen()),
-       );
-  });   
+  //   Future.delayed(Duration(seconds: 3),(){
+  //   Navigator.pushReplacement( context, 
+  //   MaterialPageRoute(builder: (context) => const ConnectivityCheckScreen()),
+  //      );
+  // });   
   }
   @override
   Widget build(BuildContext context) {

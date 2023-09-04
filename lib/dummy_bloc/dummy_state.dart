@@ -16,3 +16,9 @@ class DummyCounterDecrementState extends DummyState{
 
   DummyCounterDecrementState({required this.counter});
 }
+
+class CheckBoxUpdateState extends DummyState{
+  final bool checkValue;
+
+  CheckBoxUpdateState({required this.checkValue});
+}

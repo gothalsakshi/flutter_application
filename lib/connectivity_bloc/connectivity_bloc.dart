@@ -1,39 +1,55 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-
 part 'connectivity_event.dart';
 part 'connectivity_state.dart';
 
 class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
+  ConnectivityResult connectionStatus = ConnectivityResult.none;
+  final Connectivity connectivity = Connectivity();
+  StreamSubscription<ConnectivityResult>? connectivitySubscription;
   
-  Connectivity connectivity = Connectivity();
-  StreamSubscription? connectivitySubscription;
-
-  ConnectivityBloc() : super(InternetInitialState()) {
-    on<InternetLostEvent>((event, emit) {
-      emit(InternetLostState());
-    });
-
-    on<InternetGainedEvent>((event, emit) {
-      emit(InternetGainedState());
-    });
-
-    connectivitySubscription = connectivity.onConnectivityChanged.listen((result) { 
-      if(result == ConnectivityResult.wifi || result  == ConnectivityResult.mobile){
-        add(InternetGainedEvent());
+  ConnectivityBloc() : super(ConnectivityInitial()) {
+    on<ConnectivityEvent>((event, emit) {
+     
+      if(event is InternetConnectivityEvent){
+        emit(InternetConnectivityState());
+      }else if(event is WifiConnectivityEvent){
+        emit(WifiConnectivityState());
+      }else if(event is NoInternetConnectivityEvent){
+        emit(NoInternetConnectivityState());
       }
-      else{
-        add(InternetLostEvent());
-      }
+          });
 
+      connectivitySubscription = connectivity.onConnectivityChanged.listen((result) { 
+      if(result == ConnectivityResult.none){
+        add(NoInternetConnectivityEvent());
+      }else if(result == ConnectivityResult.mobile){
+        add(InternetConnectivityEvent());
+      }else if(result == ConnectivityResult.wifi){
+        add(WifiConnectivityEvent());
+      }
     });
+
   }
 
-  @override
-  Future<void> close() {
-    connectivitySubscription?.cancel();
-    return super.close();
+  Future<void> updateConnectionStatus(ConnectivityResult result) async {
+      connectionStatus = result;
+  }
+
+  void initConnectivity(){
+    connectivitySubscription = connectivity.onConnectivityChanged.listen((result) { 
+      if(result == ConnectivityResult.none){
+
+      }else if(result == ConnectivityResult.mobile){
+
+      }else if(result == ConnectivityResult.wifi){
+
+      }else{
+
+      }
+    });
   }
 }

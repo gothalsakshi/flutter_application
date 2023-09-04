@@ -1,7 +1,10 @@
 part of 'connectivity_bloc.dart';
 
+@immutable
 abstract class ConnectivityEvent {}
 
-class InternetLostEvent extends ConnectivityEvent{}
+class WifiConnectivityEvent extends ConnectivityEvent{}
 
-class InternetGainedEvent extends ConnectivityEvent{}
+class InternetConnectivityEvent extends ConnectivityEvent{}
+
+class NoInternetConnectivityEvent extends ConnectivityEvent{}

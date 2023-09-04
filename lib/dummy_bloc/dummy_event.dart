@@ -6,3 +6,5 @@ abstract class DummyEvent {}
 class DummyCounterIncrementEvent extends DummyEvent{}
 
 class DummyCounterDecrementEvent extends DummyEvent{}
+
+class CheckBoxUpdateEvent extends DummyEvent{}
