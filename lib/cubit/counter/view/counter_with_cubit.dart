@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/cubit/counter_cubit.dart';
+import 'package:flutter_application_1/cubit/counter/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterWithCubit extends StatelessWidget {
@@ -9,6 +9,7 @@ class CounterWithCubit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           FloatingActionButton(
               onPressed: () {
@@ -19,7 +20,7 @@ class CounterWithCubit extends StatelessWidget {
               onPressed: () {
                 context.read<CounterCubit>().counterDecrement();
               },
-              child: const Icon(Icons.add)),
+              child: const Icon(Icons.remove)),
         ],
       ),
       body: BlocBuilder<CounterCubit, int>(
