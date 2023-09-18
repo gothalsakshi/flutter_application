@@ -1,8 +1,6 @@
 import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 part 'connectivity_event.dart';
 part 'connectivity_state.dart';
 

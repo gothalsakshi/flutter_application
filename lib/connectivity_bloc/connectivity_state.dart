@@ -1,6 +1,5 @@
 part of 'connectivity_bloc.dart';
 
-@immutable
 abstract class ConnectivityState {}
 
 final class ConnectivityInitial extends ConnectivityState {}
