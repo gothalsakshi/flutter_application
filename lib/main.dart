@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/api_call/posts/bloc/posts_bloc.dart';
 import 'package:flutter_application_1/api_call/posts/view/post_page.dart';
+import 'package:flutter_application_1/api_call/users/bloc/user_bloc.dart';
+import 'package:flutter_application_1/api_call/users/view/user_page.dart';
 import 'package:flutter_application_1/connectivity_bloc/connectivity_bloc.dart';
 import 'package:flutter_application_1/cubit/connectivity/cubit/connectivity_with_cubit_cubit.dart';
 import 'package:flutter_application_1/cubit/counter/counter_cubit.dart';
@@ -26,7 +28,8 @@ class MyApp extends StatelessWidget {
       BlocProvider(create: (ctx)=> CounterCubit()),
       BlocProvider(create: (ctx)=> ConnectivityWithCubit()),
       BlocProvider(create: (ctx)=> ListFunctionsCubit()),
-      BlocProvider(create: (ctx)=> PostsBloc())
+      BlocProvider(create: (ctx)=> PostsBloc()),
+      BlocProvider(create: (ctx)=> UserBloc())
     ], 
     child: MaterialApp(
         title: 'Flutter Demo',
@@ -34,7 +37,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const PostsPage(),
+        home: const UserPage(),
       ));
     
     // BlocProvider(
