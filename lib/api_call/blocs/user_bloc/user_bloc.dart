@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter_application_1/api_call/users/model/user_model.dart';
-import 'package:flutter_application_1/api_call/users/repos/user_repo.dart';
-import 'package:meta/meta.dart';
-
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/api_call/model/user_model.dart';
+import 'package:flutter_application_1/api_call/repositories/user_repo.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 part 'user_event.dart';
 part 'user_state.dart';
 

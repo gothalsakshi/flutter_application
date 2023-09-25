@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/api_call/users/model/user_model.dart';
+import 'package:flutter_application_1/api_call/model/user_model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 

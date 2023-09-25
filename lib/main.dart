@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/api_call/posts/bloc/posts_bloc.dart';
-import 'package:flutter_application_1/api_call/posts/view/post_page.dart';
-import 'package:flutter_application_1/api_call/users/bloc/user_bloc.dart';
-import 'package:flutter_application_1/api_call/users/view/user_page.dart';
+import 'package:flutter_application_1/api_call/blocs/post_bloc/posts_bloc.dart';
+import 'package:flutter_application_1/api_call/blocs/user_bloc/user_bloc.dart';
+import 'package:flutter_application_1/api_call/screens/user_page.dart';
 import 'package:flutter_application_1/connectivity_bloc/connectivity_bloc.dart';
 import 'package:flutter_application_1/cubit/connectivity/cubit/connectivity_with_cubit_cubit.dart';
 import 'package:flutter_application_1/cubit/counter/counter_cubit.dart';
 import 'package:flutter_application_1/cubit/list_functions/cubit/list_functions_cubit.dart';
-import 'package:flutter_application_1/cubit/list_functions/view/list_functions_screen.dart';
 import 'package:flutter_application_1/dummy_bloc/dummy_bloc.dart';
 import 'package:flutter_application_1/form_validation/form_validation_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

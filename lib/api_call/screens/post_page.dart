@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/api_call/posts/bloc/posts_bloc.dart';
+import 'package:flutter_application_1/api_call/blocs/post_bloc/posts_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PostsPage extends StatelessWidget {

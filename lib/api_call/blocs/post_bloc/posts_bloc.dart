@@ -1,6 +1,6 @@
 
-import 'package:flutter_application_1/api_call/posts/model/posts_response_model.dart';
-import 'package:flutter_application_1/api_call/posts/repos/posts_repo.dart';
+import 'package:flutter_application_1/api_call/model/posts_response_model.dart';
+import 'package:flutter_application_1/api_call/repositories/posts_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'posts_event.dart';

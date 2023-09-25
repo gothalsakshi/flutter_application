@@ -1,7 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/api_call/posts/model/posts_response_model.dart';
+import 'package:flutter_application_1/api_call/model/posts_response_model.dart';
 import 'package:http/http.dart' as http;
 
 class PostsRepo{
