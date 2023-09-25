@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/api_call/blocs/album_bloc/album_bloc.dart';
+import 'package:flutter_application_1/api_call/blocs/post_bloc/posts_bloc.dart';
+import 'package:flutter_application_1/api_call/blocs/todos_bloc/todos_bloc.dart';
 import 'package:flutter_application_1/api_call/blocs/user_bloc/user_bloc.dart';
+import 'package:flutter_application_1/api_call/screens/album_page.dart';
+import 'package:flutter_application_1/api_call/screens/post_page.dart';
+import 'package:flutter_application_1/api_call/screens/todos_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserPage extends StatefulWidget {
@@ -10,7 +16,7 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  // final UserBloc bloc = UserBloc();
+  // final CommentBloc comentBloc = CommentBloc();
   
   @override
   void initState() {
@@ -45,26 +51,26 @@ class _UserPageState extends State<UserPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: () {} ,
+                        onTap: () {
+                          context.read<PostsBloc>().add(LoadingPostsEvent(userId: state.userList[index].id!));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> const PostPage()));
+                        } ,
                         child: Chip(padding: const EdgeInsets.all(4),
                           color: MaterialStatePropertyAll(Colors.deepOrange.shade100),
                           labelPadding: const EdgeInsets.all(0),
                           label: const Text('Posts')),
                       ),
                       InkWell(
-                        onTap: () {} ,
+                        onTap: () {
+                          context.read<AlbumBloc>().add(AlbumLoadingEvent(userId: state.userList[index].id!));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> const AlbumPage()));
+                        } ,
                         child: Chip(padding: const EdgeInsets.all(4),
                           labelPadding: const EdgeInsets.all(0),
                           color: MaterialStatePropertyAll(Colors.deepOrange.shade200),
-                          label: const Text('Comments')),
-                      ),
-                      InkWell(
-                        onTap: () {} ,
-                        child: Chip(padding: const EdgeInsets.all(4),
-                          labelPadding: const EdgeInsets.all(0),
-                          color: MaterialStatePropertyAll(Colors.deepOrange.shade300),
                           label: const Text('Albums')),
                       ),
+                      
                       InkWell(
                         onTap: () {} ,
                         child: Chip(padding: const EdgeInsets.all(4),
@@ -73,7 +79,10 @@ class _UserPageState extends State<UserPage> {
                           label: const Text('Photos')),
                       ),
                       InkWell(
-                        onTap: () {} ,
+                        onTap: () {
+                          context.read<TodosBloc>().add(TodosLoadingEvent(userId: state.userList[index].id!));
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const TodosPage()));
+                        } ,
                         child: Chip(padding: const EdgeInsets.all(4),
                           labelPadding: const EdgeInsets.all(0),
                           color: MaterialStatePropertyAll(Colors.deepOrange.shade500),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/api_call/blocs/post_bloc/posts_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PostsPage extends StatelessWidget {
-  const PostsPage({super.key});
+class PostPage extends StatelessWidget {
+  const PostPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +36,7 @@ class PostsPage extends StatelessWidget {
           return Container(
             height: double.infinity,
             width: double.infinity,
-            color: Colors.grey,
-            child: Center(
-              child: ElevatedButton(onPressed: (){
-                context.read<PostsBloc>().add(LoadedPostsEvent());
-              }, child: const Text('call Method')),
-            ),
+            color: Colors.grey
           );
         }
       }),

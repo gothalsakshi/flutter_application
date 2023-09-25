@@ -8,13 +8,13 @@ part 'posts_state.dart';
 
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
   PostsBloc() : super(PostsInitial()) {
-     on<PostsEvent>(postsInitialFetchEvent);
+     on<LoadingPostsEvent>(postsInitialFetchEvent);
   }
 
   Future<void> postsInitialFetchEvent(
-      PostsEvent event, Emitter<PostsState> emit) async {
+      LoadingPostsEvent event, Emitter<PostsState> emit) async {
     emit(LoadingPostsState());
-    List<PostDataUiModel> posts = await PostsRepo().getPostList();
+    List<PostDataUiModel> posts = await PostsRepo().getPostList(event.userId);
 
     emit(LoadedPostsState(postsList: posts));
   }

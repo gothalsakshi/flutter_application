@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/api_call/blocs/album_bloc/album_bloc.dart';
+import 'package:flutter_application_1/api_call/blocs/comment_bloc/comment_bloc.dart';
 import 'package:flutter_application_1/api_call/blocs/post_bloc/posts_bloc.dart';
+import 'package:flutter_application_1/api_call/blocs/todos_bloc/todos_bloc.dart';
 import 'package:flutter_application_1/api_call/blocs/user_bloc/user_bloc.dart';
+import 'package:flutter_application_1/api_call/screens/post_page.dart';
 import 'package:flutter_application_1/api_call/screens/user_page.dart';
 import 'package:flutter_application_1/connectivity_bloc/connectivity_bloc.dart';
 import 'package:flutter_application_1/cubit/connectivity/cubit/connectivity_with_cubit_cubit.dart';
@@ -27,7 +31,10 @@ class MyApp extends StatelessWidget {
       BlocProvider(create: (ctx)=> ConnectivityWithCubit()),
       BlocProvider(create: (ctx)=> ListFunctionsCubit()),
       BlocProvider(create: (ctx)=> PostsBloc()),
-      BlocProvider(create: (ctx)=> UserBloc())
+      BlocProvider(create: (ctx)=> UserBloc()),
+      BlocProvider(create: (ctx)=> CommentBloc()),
+      BlocProvider(create: (ctx)=> AlbumBloc()),
+      BlocProvider(create: (ctx)=> TodosBloc())
     ], 
     child: MaterialApp(
         title: 'Flutter Demo',
