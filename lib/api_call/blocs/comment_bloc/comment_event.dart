@@ -4,9 +4,9 @@ part of 'comment_bloc.dart';
 abstract class CommentEvent {}
 
 class CommentLoadingEvent extends CommentEvent{
-  final int userId;
+  final int postId;
 
-  CommentLoadingEvent({required this.userId});
+  CommentLoadingEvent({required this.postId});
 }
 
 class CommentLoadedEvent extends CommentEvent{}

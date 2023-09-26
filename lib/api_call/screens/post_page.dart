@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/api_call/blocs/comment_bloc/comment_bloc.dart';
 import 'package:flutter_application_1/api_call/blocs/post_bloc/posts_bloc.dart';
+import 'package:flutter_application_1/api_call/screens/comment_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PostPage extends StatelessWidget {
@@ -15,19 +17,25 @@ class PostPage extends StatelessWidget {
           return ListView.builder(
             itemCount: state.postsList.length,
             itemBuilder: (ctx,index){
-            return Container(
-              color: Colors.green.shade200,
-              margin: const EdgeInsets.all(15),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('User Id :- ${state.postsList[index].userId.toString()}'),
-                Text('Id :- ${state.postsList[index].id.toString()}'),
-                Text('Title :-  ${state.postsList[index].title.toString()}'),
-                Text('Body :- ${state.postsList[index].body.toString()}'),
-              ],
-            ),
+            return InkWell(
+              onTap: (){
+                context.read<CommentBloc>().add(CommentLoadingEvent(postId: state.postsList[index].id));
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> const CommentPage()));
+              },
+              child: Container(
+                color: Colors.green.shade200,
+                margin: const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('User Id :- ${state.postsList[index].userId.toString()}'),
+                    Text('Id :- ${state.postsList[index].id.toString()}'),
+                    Text('Title :-  ${state.postsList[index].title.toString()}'),
+                    Text('Body :- ${state.postsList[index].body.toString()}'),
+                ],
+              ),
+              ),
             );
           });
         }else if(state is LoadingPostsState){

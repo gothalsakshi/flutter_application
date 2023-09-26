@@ -55,9 +55,8 @@ class _UserPageState extends State<UserPage> {
                           context.read<PostsBloc>().add(LoadingPostsEvent(userId: state.userList[index].id!));
                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> const PostPage()));
                         } ,
-                        child: Chip(padding: const EdgeInsets.all(4),
+                        child: Chip(
                           color: MaterialStatePropertyAll(Colors.deepOrange.shade100),
-                          labelPadding: const EdgeInsets.all(0),
                           label: const Text('Posts')),
                       ),
                       InkWell(
@@ -65,27 +64,17 @@ class _UserPageState extends State<UserPage> {
                           context.read<AlbumBloc>().add(AlbumLoadingEvent(userId: state.userList[index].id!));
                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> const AlbumPage()));
                         } ,
-                        child: Chip(padding: const EdgeInsets.all(4),
-                          labelPadding: const EdgeInsets.all(0),
+                        child: Chip(
                           color: MaterialStatePropertyAll(Colors.deepOrange.shade200),
                           label: const Text('Albums')),
-                      ),
-                      
-                      InkWell(
-                        onTap: () {} ,
-                        child: Chip(padding: const EdgeInsets.all(4),
-                          labelPadding: const EdgeInsets.all(0),
-                          color: MaterialStatePropertyAll(Colors.deepOrange.shade400),
-                          label: const Text('Photos')),
                       ),
                       InkWell(
                         onTap: () {
                           context.read<TodosBloc>().add(TodosLoadingEvent(userId: state.userList[index].id!));
                           Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const TodosPage()));
                         } ,
-                        child: Chip(padding: const EdgeInsets.all(4),
-                          labelPadding: const EdgeInsets.all(0),
-                          color: MaterialStatePropertyAll(Colors.deepOrange.shade500),
+                        child: Chip(
+                          color: MaterialStatePropertyAll(Colors.deepOrange.shade300),
                           label: const Text('Todos')),
                       )
                     ],

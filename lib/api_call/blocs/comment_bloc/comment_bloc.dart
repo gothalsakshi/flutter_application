@@ -14,8 +14,8 @@ class CommentBloc extends Bloc<CommentEvent, CommentState> {
   Future<void> commentsFetch(
     CommentLoadingEvent event, Emitter<CommentState> emit) async {
     emit(CommentLoadingState());
-    List<CommentModel> comments = await CommentRepo().getUserComments(event.userId);
-    debugPrint('in bloc file--->${event.userId.toString()}');
+    List<CommentModel> comments = await CommentRepo().getUserComments(event.postId);
+    debugPrint('in bloc file--->${event.postId.toString()}');
     emit(CommentLoadedState(commentList: comments));
   }
 }

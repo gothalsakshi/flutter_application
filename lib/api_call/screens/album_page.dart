@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/api_call/blocs/album_bloc/album_bloc.dart';
+import 'package:flutter_application_1/api_call/blocs/photos_bloc/photos_bloc.dart';
+import 'package:flutter_application_1/api_call/screens/photos_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AlbumPage extends StatelessWidget {
@@ -14,19 +16,25 @@ class AlbumPage extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }else if(state is AlbumLoadedState){
           return ListView.builder(
-            itemCount: state.commentList.length,
+            itemCount: state.albumList.length,
             itemBuilder: (ctx,index){
-            return Container(
-              padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.all(10),
-              color: Colors.pinkAccent.shade100,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('User ID :- ${state.commentList[index].userId.toString()}'),
-                  Text('ID :- ${state.commentList[index].id.toString()}'),
-                  Text('Title :- ${state.commentList[index].title.toString()}'),
-                ],
+            return InkWell(
+              onTap: (){
+                context.read<PhotosBloc>().add(PhotosLoadingEvent(albumId: state.albumList[index].id!));
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> const PhotosPage()));
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
+                color: Colors.yellow.shade100,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('User ID :- ${state.albumList[index].userId.toString()}'),
+                    Text('ID :- ${state.albumList[index].id.toString()}'),
+                    Text('Title :- ${state.albumList[index].title.toString()}'),
+                  ],
+                ),
               ),
             );
           });

@@ -8,9 +8,9 @@ class AlbumInitial extends AlbumState {}
 class AlbumLoadingState extends AlbumState{}
 
 class AlbumLoadedState extends AlbumState{
-  final List<AlbumModel> commentList;
+  final List<AlbumModel> albumList;
 
-  AlbumLoadedState({required this.commentList});
+  AlbumLoadedState({required this.albumList});
 }
 
 class AlbumError extends AlbumState{

@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
+
 import 'package:flutter_application_1/api_call/model/todos_model.dart';
 import 'package:flutter_application_1/api_call/repositories/todos_repo.dart';
-import 'package:meta/meta.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 part 'todos_event.dart';
 part 'todos_state.dart';
 

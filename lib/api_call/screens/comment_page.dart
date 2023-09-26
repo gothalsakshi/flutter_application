@@ -11,16 +11,6 @@ class CommentPage extends StatefulWidget {
 
 class _CommentPageState extends State<CommentPage> {
   
-  // final commentBloc = CommentBloc();
-
-  @override
-  void initState() {
-    super.initState();
-    // context.read<CommentBloc>().add(CommentLoadingEvent());
-
-    // debugPrint('user id in init state-->${commentBloc.userId}');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,14 +25,15 @@ class _CommentPageState extends State<CommentPage> {
             return Container(
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.all(10),
-              color: Colors.pinkAccent,
+              color: Color.fromARGB(255, 229, 164, 186),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(state.commentList[index].postId.toString()),
-                  Text(state.commentList[index].id.toString()),
-                  Text(state.commentList[index].name.toString()),
-                  Text(state.commentList[index].email.toString()),
-                  Text(state.commentList[index].body.toString()),
+                  Text('Post ID :- ${state.commentList[index].postId.toString()}'),
+                  Text('Comment ID :- ${state.commentList[index].id.toString()}'),
+                  Text('User Name :- ${state.commentList[index].name!}'),
+                  Text('User Email :- ${state.commentList[index].email.toString()}'),
+                  Text('Comment Body :- ${state.commentList[index].body.toString()}'),
                 ],
               ),
             );
