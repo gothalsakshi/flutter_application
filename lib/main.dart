@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/api_call/blocs/album_bloc/album_bloc.dart';
 import 'package:flutter_application_1/api_call/blocs/comment_bloc/comment_bloc.dart';
@@ -11,10 +12,13 @@ import 'package:flutter_application_1/cubit/connectivity/cubit/connectivity_with
 import 'package:flutter_application_1/cubit/counter/counter_cubit.dart';
 import 'package:flutter_application_1/cubit/list_functions/cubit/list_functions_cubit.dart';
 import 'package:flutter_application_1/dummy_bloc/dummy_bloc.dart';
+import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/form_validation/form_validation_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
