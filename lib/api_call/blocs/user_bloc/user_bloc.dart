@@ -7,12 +7,30 @@ part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitial()) {
-    on<LoadingUserDataEevnt>(gettingUserData);
+    on<LoadingUserDataEvent>(gettingUserData);
   }
+  int page = 1;
+   void gettingUserData(LoadingUserDataEvent event,Emitter<UserState>emit)async{
+    
+    if(state is LoadingUserDataState) return;
 
-  Future<void> gettingUserData(LoadingUserDataEevnt event,Emitter<UserState>emit)async{
-    emit(LoadingUserDataState());
-    List<UserModel> userRepoData = await UserRepo().getUserList();
-    emit(LoadedUserDataState(userList: userRepoData));
+    final currentState = state;
+    var oldData = <UserModel>[];
+    if(currentState is LoadedUserDataState){
+      oldData = currentState.oldUserList;
+    }
+
+    emit(LoadingUserDataState(userList: oldData,isFirstFetch: page == 1));
+    final users = (state as LoadingUserDataState).userList;
+    List<UserModel> userRepoData = await 
+    UserRepo().getUserList(page).then((value) {
+      page++;
+      // final users = (state as LoadingUserDataState).userList;
+      users.addAll(value);
+      debugPrint('checking the page number--->{$page}');
+      return users;
+    });
+    emit(LoadedUserDataState(oldUserList: users));
+    // userRepoData.clear();
   }
 }

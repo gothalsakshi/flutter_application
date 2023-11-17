@@ -3,6 +3,7 @@ import 'package:flutter_application_1/api_call/blocs/album_bloc/album_bloc.dart'
 import 'package:flutter_application_1/api_call/blocs/post_bloc/posts_bloc.dart';
 import 'package:flutter_application_1/api_call/blocs/todos_bloc/todos_bloc.dart';
 import 'package:flutter_application_1/api_call/blocs/user_bloc/user_bloc.dart';
+import 'package:flutter_application_1/api_call/model/user_model.dart';
 import 'package:flutter_application_1/api_call/screens/album_page.dart';
 import 'package:flutter_application_1/api_call/screens/post_page.dart';
 import 'package:flutter_application_1/api_call/screens/todos_page.dart';
@@ -19,14 +20,27 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   // final CommentBloc comentBloc = CommentBloc();
 
+  final scrollController = ScrollController();
+
+  void setupScrollController(){
+    scrollController.addListener(() { 
+      if(scrollController.position.atEdge){
+        if(scrollController.position.pixels != 0){
+          context.read<UserBloc>().add(LoadingUserDataEvent());
+        }
+      }
+    });
+  }
+
   @override
   void initState() {
-    context.read<UserBloc>().add(LoadingUserDataEevnt());
+    context.read<UserBloc>().add(LoadingUserDataEvent());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    setupScrollController();
     return BlocBuilder<ConnectivityBloc, ConnectivityState>(
       builder: (context, state) {
         if (state is InternetConnectivityState ||
@@ -34,11 +48,19 @@ class _UserPageState extends State<UserPage> {
           return Scaffold(
             appBar: AppBar(title: const Text('User Page')),
             body: BlocBuilder<UserBloc, UserState>(builder: (ctx, state) {
+              List<UserModel> users = [];
+              bool isLoading = false;
+              if(state is LoadingUserDataState  && state.isFirstFetch){
+                return const Center(child: CircularProgressIndicator());
+              } 
               if (state is LoadedUserDataState) {
+                users = state.oldUserList;
                 return ListView.builder(
-                    itemCount: state.userList.length,
+                    controller: scrollController,
+                    itemCount: users.length + (isLoading == true ? 1 : 0),
                     itemBuilder: (ctx, index) {
-                      return Container(
+                      if(index < state.oldUserList.length){
+                        return Container(
                         color: Colors.amber.shade100,
                         margin: const EdgeInsets.all(12),
                         padding: const EdgeInsets.all(12),
@@ -46,17 +68,17 @@ class _UserPageState extends State<UserPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                                'User Id :- ${state.userList[index].id.toString()}'),
+                                'User Id :- ${users[index].id.toString()}'),
                             Text(
-                                'User Name :- ${state.userList[index].name.toString()}'),
+                                'User Name :- ${users[index].name.toString()}'),
                             Text(
-                                'User PhoneNumber :- ${state.userList[index].phone.toString()}'),
+                                'User PhoneNumber :- ${users[index].phone.toString()}'),
                             Text(
-                                'User Email :- ${state.userList[index].email.toString()}'),
+                                'User Email :- ${users[index].email.toString()}'),
                             Text(
-                                'User Company Name :- ${state.userList[index].company!.name.toString()}'),
+                                'User Company Name :- ${users[index].company!.name.toString()}'),
                             Text(
-                                'User City Name :- ${state.userList[index].address!.city.toString()}'),
+                                'User City Name :- ${users[index].address!.city.toString()}'),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -64,7 +86,7 @@ class _UserPageState extends State<UserPage> {
                                   onTap: () {
                                     context.read<PostsBloc>().add(
                                         LoadingPostsEvent(
-                                            userId: state.userList[index].id!));
+                                            userId: users[index].id!));
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (ctx) =>
@@ -79,7 +101,7 @@ class _UserPageState extends State<UserPage> {
                                   onTap: () {
                                     context.read<AlbumBloc>().add(
                                         AlbumLoadingEvent(
-                                            userId: state.userList[index].id!));
+                                            userId: state.oldUserList[index].id!));
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (ctx) =>
@@ -94,7 +116,7 @@ class _UserPageState extends State<UserPage> {
                                   onTap: () {
                                     context.read<TodosBloc>().add(
                                         TodosLoadingEvent(
-                                            userId: state.userList[index].id!));
+                                            userId: state.oldUserList[index].id!));
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -111,8 +133,15 @@ class _UserPageState extends State<UserPage> {
                           ],
                         ),
                       );
+                      }else{
+                        return const Center(child: CircularProgressIndicator());
+                      }
                     });
               } else if (state is LoadingUserDataState) {
+                // setState(() {
+                  users = state.userList;
+                  isLoading = true;
+                // });
                 return const Center(child: CircularProgressIndicator());
               } else {
                 return Container(

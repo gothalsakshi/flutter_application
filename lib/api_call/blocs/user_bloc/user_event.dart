@@ -3,7 +3,7 @@ part of 'user_bloc.dart';
 @immutable
 abstract class UserEvent {}
 
-class LoadingUserDataEevnt extends UserEvent{}
+class LoadingUserDataEvent extends UserEvent{}
 
 class LoadedUserDataEvent extends UserEvent{}
 

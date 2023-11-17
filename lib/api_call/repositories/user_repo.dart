@@ -6,8 +6,9 @@ import 'package:http/http.dart' as http;
 class UserRepo{
   List<UserModel> userList = [];
   final client = http.Client();
-  Future<dynamic> getUserList()async{
-    final response = await client.get(Uri.parse('https://jsonplaceholder.typicode.com/users/'));
+  final int limit = 3;
+  Future<dynamic> getUserList(int page)async{
+    final response = await client.get(Uri.parse('https://jsonplaceholder.typicode.com/users?_page=$page&_limit=4'));
     List decodeData = jsonDecode(response.body.toString());
     // final userData = userModelFromJson(decodeData.toString());
     for (var i = 0; i < decodeData.length; i++) {
