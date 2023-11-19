@@ -22,10 +22,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     emit(LoadingUserDataState(userList: oldData,isFirstFetch: page == 1));
     final users = (state as LoadingUserDataState).userList;
-    List<UserModel> userRepoData = await 
-    UserRepo().getUserList(page).then((value) {
+    await UserRepo().getUserList(page).then((value) {
       page++;
-      // final users = (state as LoadingUserDataState).userList;
+      final users = (state as LoadingUserDataState).userList;
       users.addAll(value);
       debugPrint('checking the page number--->{$page}');
       return users;

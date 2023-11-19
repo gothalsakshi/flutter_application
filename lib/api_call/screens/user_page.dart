@@ -25,7 +25,7 @@ class _UserPageState extends State<UserPage> {
   void setupScrollController(){
     scrollController.addListener(() { 
       if(scrollController.position.atEdge){
-        if(scrollController.position.pixels != 0){
+        if(scrollController.position.pixels != 200){
           context.read<UserBloc>().add(LoadingUserDataEvent());
         }
       }
@@ -53,13 +53,25 @@ class _UserPageState extends State<UserPage> {
               if(state is LoadingUserDataState  && state.isFirstFetch){
                 return const Center(child: CircularProgressIndicator());
               } 
-              if (state is LoadedUserDataState) {
+
+              if (state is LoadingUserDataState) {
+                // setState(() {
+                  users = state.userList;
+                  isLoading = true;
+                  debugPrint('checking true value----${isLoading}');
+                // });
+                return const Center(child: CircularProgressIndicator());
+              } else if(state is LoadedUserDataState){
                 users = state.oldUserList;
+              }
+
+              // if (state is LoadedUserDataState) {
+                // users = state.oldUserList;
                 return ListView.builder(
                     controller: scrollController,
-                    itemCount: users.length + (isLoading == true ? 1 : 0),
+                    itemCount: users.length + 1,
                     itemBuilder: (ctx, index) {
-                      if(index < state.oldUserList.length){
+                      if(index < users.length){
                         return Container(
                         color: Colors.amber.shade100,
                         margin: const EdgeInsets.all(12),
@@ -90,7 +102,7 @@ class _UserPageState extends State<UserPage> {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (ctx) =>
-                                                const PostPage()));
+                                                 PostPage()));
                                   },
                                   child: Chip(
                                       color: MaterialStatePropertyAll(
@@ -101,7 +113,7 @@ class _UserPageState extends State<UserPage> {
                                   onTap: () {
                                     context.read<AlbumBloc>().add(
                                         AlbumLoadingEvent(
-                                            userId: state.oldUserList[index].id!));
+                                            userId: users[index].id!));
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (ctx) =>
@@ -116,7 +128,7 @@ class _UserPageState extends State<UserPage> {
                                   onTap: () {
                                     context.read<TodosBloc>().add(
                                         TodosLoadingEvent(
-                                            userId: state.oldUserList[index].id!));
+                                            userId: users[index].id!));
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -137,20 +149,23 @@ class _UserPageState extends State<UserPage> {
                         return const Center(child: CircularProgressIndicator());
                       }
                     });
-              } else if (state is LoadingUserDataState) {
-                // setState(() {
-                  users = state.userList;
-                  isLoading = true;
-                // });
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return Container(
-                  color: Colors.black,
-                  // child: FloatingActionButton(onPressed: (){
-                  //   context.read<UserBloc>().add(LoadingUserDataEevnt());
-                  // }),
-                );
-              }
+              // } 
+              // else if (state is LoadingUserDataState) {
+              //   // setState(() {
+              //     users = state.userList;
+              //     isLoading = true;
+              //     debugPrint('checking true value----${isLoading}');
+              //   // });
+              //   return const Center(child: CircularProgressIndicator());
+              // } 
+              // else {
+              //   return Container(
+              //     color: Colors.black,
+              //     // child: FloatingActionButton(onPressed: (){
+              //     //   context.read<UserBloc>().add(LoadingUserDataEevnt());
+              //     // }),
+              //   );
+              // }
             }),
           );
         } else if (state is NoInternetConnectivityState) {
