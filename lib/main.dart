@@ -11,6 +11,8 @@ import 'package:flutter_application_1/connectivity_bloc/connectivity_bloc.dart';
 import 'package:flutter_application_1/cubit/connectivity/cubit/connectivity_with_cubit_cubit.dart';
 import 'package:flutter_application_1/cubit/counter/counter_cubit.dart';
 import 'package:flutter_application_1/cubit/list_functions/cubit/list_functions_cubit.dart';
+import 'package:flutter_application_1/demo/bottom_navigation_bar/bloc/bottom_navigation_bar_bloc.dart';
+import 'package:flutter_application_1/demo/bottom_navigation_bar/bottom_navigation_screen.dart';
 import 'package:flutter_application_1/dummy_bloc/dummy_bloc.dart';
 import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/form_validation/form_validation_bloc.dart';
@@ -39,7 +41,8 @@ class MyApp extends StatelessWidget {
       BlocProvider(create: (ctx)=> CommentBloc()),
       BlocProvider(create: (ctx)=> AlbumBloc()),
       BlocProvider(create: (ctx)=> TodosBloc()),
-      BlocProvider(create: (ctx)=> PhotosBloc())
+      BlocProvider(create: (ctx)=> PhotosBloc()),
+      BlocProvider(create: (ctx)=> BottomNavigationBarBloc())
     ], 
     child: MaterialApp(
         title: 'Flutter Demo',
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const UserPage(),
+        home: const BottomNavigationBarScreen(),
       ));
     
     // BlocProvider(
